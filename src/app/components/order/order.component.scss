@@ -1,0 +1,309 @@
+// Variables
+$primary-color: #2d3436; // Gris foncé élégant
+$accent-color: #b8621b; // Orange cuivré
+$background-color: #f7f3f0; // Blanc cassé
+$text-color: #2d3436; // Gris foncé
+$border-color: #e3e3e3; // Gris clair
+$success-color: #34495e; // Bleu nuit
+$error-color: #d35400; // Orange foncé
+$copper-gradient: linear-gradient(135deg, #b8621b, #8B4513);
+
+.order-container {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 0;
+  position: relative;
+  background: transparent;
+}
+
+h1 {
+  text-align: center;
+  color: $primary-color;
+  font-size: 3.2rem;
+  font-weight: 200;
+  margin-bottom: 4rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  position: relative;
+  padding: 2rem 0;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $copper-gradient;
+  }
+
+  &::before {
+    top: 0;
+    width: 80px;
+    height: 2px;
+  }
+
+  &::after {
+    bottom: 0;
+    width: 120px;
+    height: 2px;
+  }
+
+  span {
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    color: $accent-color;
+    margin-top: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    opacity: 0.8;
+
+    &::before, &::after {
+      content: '—';
+      margin: 0 1rem;
+      opacity: 0.5;
+    }
+  }
+}
+
+.order-form {
+  .form-section {
+    background: white;
+    margin-bottom: 3rem;
+    position: relative;
+    border-radius: 0;
+    padding: 3rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+
+    h2 {
+      color: $accent-color;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      position: relative;
+      padding-left: 15px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 20px;
+        background: $copper-gradient;
+      }
+    }
+  }
+
+  .form-row {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 2.5rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+
+  .form-group {
+    flex: 1;
+    margin-bottom: 2.5rem;
+
+    &.full-width {
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.8rem;
+      color: $text-color;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-bottom: 1px solid $border-color;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: transparent;
+      color: $text-color;
+
+      &:focus {
+        outline: none;
+        border-bottom-color: $accent-color;
+      }
+
+      &.ng-invalid.ng-touched {
+        border-bottom-color: $error-color;
+      }
+
+      &::placeholder {
+        color: rgba($text-color, 0.5);
+      }
+    }
+
+    textarea {
+      min-height: 120px;
+      border: 1px solid $border-color;
+      border-radius: 4px;
+      
+      &:focus {
+        border-color: $accent-color;
+      }
+    }
+  }
+}
+
+.error-message {
+  color: $error-color;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.menu-selection {
+  .section-description {
+    text-align: center;
+    color: $text-color;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .menu-day {
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background: transparent;
+      border: 1px solid $border-color;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: $accent-color;
+        background: rgba($accent-color, 0.02);
+      }
+
+      input[type="checkbox"] {
+        margin-right: 0.8rem;
+        width: 18px;
+        height: 18px;
+        accent-color: $accent-color;
+      }
+    }
+  }
+}
+
+.form-actions {
+  margin-top: 4rem;
+  text-align: center;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 1px;
+    background: $accent-color;
+  }
+
+  .submit-button {
+    background: $copper-gradient;
+    color: white;
+    border: none;
+    padding: 1.2rem 4rem;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+
+      &::after {
+        transform: translateX(100%);
+      }
+    }
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+.back-button-container {
+  position: relative;
+  margin-bottom: 2rem;
+  z-index: 10;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 0;
+  color: $accent-color;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  background: transparent;
+  border: none;
+
+  .back-icon {
+    margin-right: 0.6rem;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    color: darken($accent-color, 10%);
+    transform: translateX(-5px);
+
+    .back-icon {
+      transform: translateX(-3px);
+    }
+  }
+} 

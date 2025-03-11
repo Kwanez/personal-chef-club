@@ -1,0 +1,144 @@
+<div class="order-container">
+  <div class="back-button-container">
+    <a routerLink="/" class="back-button">
+      <span class="back-icon">←</span>
+      Retour
+    </a>
+  </div>
+
+  <h1>
+    Commander vos repas
+    <span>Une expérience gastronomique unique</span>
+  </h1>
+  
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="order-form">
+    <div class="form-section personal-info">
+      <h2>Informations personnelles</h2>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nom">Nom *</label>
+          <input id="nom" type="text" formControlName="nom" placeholder="Votre nom">
+          <div class="error-message" *ngIf="orderForm.get('nom')?.errors?.['required'] && orderForm.get('nom')?.touched">
+            Le nom est requis
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="prenom">Prénom *</label>
+          <input id="prenom" type="text" formControlName="prenom" placeholder="Votre prénom">
+          <div class="error-message" *ngIf="orderForm.get('prenom')?.errors?.['required'] && orderForm.get('prenom')?.touched">
+            Le prénom est requis
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input id="email" type="email" formControlName="email" placeholder="votre@email.com">
+          <div class="error-message" *ngIf="orderForm.get('email')?.errors?.['required'] && orderForm.get('email')?.touched">
+            L'email est requis
+          </div>
+          <div class="error-message" *ngIf="orderForm.get('email')?.errors?.['email'] && orderForm.get('email')?.touched">
+            L'email n'est pas valide
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telephone">Téléphone *</label>
+          <input id="telephone" type="tel" formControlName="telephone" placeholder="Votre numéro">
+          <div class="error-message" *ngIf="orderForm.get('telephone')?.errors?.['required'] && orderForm.get('telephone')?.touched">
+            Le téléphone est requis
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section address-info">
+      <h2>Adresse de livraison</h2>
+      
+      <div class="form-group full-width">
+        <label for="adresse">Adresse *</label>
+        <input id="adresse" type="text" formControlName="adresse" placeholder="Votre adresse">
+        <div class="error-message" *ngIf="orderForm.get('adresse')?.errors?.['required'] && orderForm.get('adresse')?.touched">
+          L'adresse est requise
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="codePostal">Code Postal *</label>
+          <input id="codePostal" type="text" formControlName="codePostal" placeholder="Code postal">
+          <div class="error-message" *ngIf="orderForm.get('codePostal')?.errors?.['required'] && orderForm.get('codePostal')?.touched">
+            Le code postal est requis
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ville">Ville *</label>
+          <input id="ville" type="text" formControlName="ville" placeholder="Ville">
+          <div class="error-message" *ngIf="orderForm.get('ville')?.errors?.['required'] && orderForm.get('ville')?.touched">
+            La ville est requise
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section menu-selection" formGroupName="menus">
+      <h2>Sélection des menus</h2>
+      <p class="section-description">Sélectionnez les jours où vous souhaitez être livré</p>
+      
+      <div class="menu-grid">
+        <div class="menu-day">
+          <label class="checkbox-container">
+            <input type="checkbox" formControlName="lundi">
+            <span class="checkmark"></span>
+            Lundi
+          </label>
+        </div>
+        <div class="menu-day">
+          <label class="checkbox-container">
+            <input type="checkbox" formControlName="mardi">
+            <span class="checkmark"></span>
+            Mardi
+          </label>
+        </div>
+        <div class="menu-day">
+          <label class="checkbox-container">
+            <input type="checkbox" formControlName="mercredi">
+            <span class="checkmark"></span>
+            Mercredi
+          </label>
+        </div>
+        <div class="menu-day">
+          <label class="checkbox-container">
+            <input type="checkbox" formControlName="jeudi">
+            <span class="checkmark"></span>
+            Jeudi
+          </label>
+        </div>
+        <div class="menu-day">
+          <label class="checkbox-container">
+            <input type="checkbox" formControlName="vendredi">
+            <span class="checkmark"></span>
+            Vendredi
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-group full-width">
+        <label for="commentaires">Commentaires</label>
+        <textarea id="commentaires" formControlName="commentaires" rows="4" placeholder="Commentaires ou instructions spéciales"></textarea>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="submit-button" [disabled]="!orderForm.valid">
+        Valider la commande
+      </button>
+    </div>
+  </form>
+</div> 

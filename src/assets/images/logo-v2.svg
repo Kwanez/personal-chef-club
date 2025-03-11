@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Couteau (côté droit) -->
+  <g transform="translate(85, 70) rotate(15)">
+    <!-- Manche du couteau -->
+    <path d="M-4 -40L4 -40L8 -35L8 40L4 40L-4 35V-40Z" fill="url(#copper_gradient)" opacity="0.8"/>
+    <!-- Lame du couteau -->
+    <path d="M-2 -40L2 -40L15 -35L15 0L-2 -35V-40Z" fill="url(#copper_gradient)" opacity="0.9"/>
+    <!-- Pointe de la lame -->
+    <path d="M-2 -35L15 -35L12 0L-2 -35Z" fill="url(#copper_gradient)" opacity="0.9"/>
+  </g>
+  
+  <!-- Fourchette (côté gauche) -->
+  <g transform="translate(35, 70) rotate(-15)">
+    <!-- Manche de la fourchette -->
+    <path d="M-4 -40L4 -40L8 -35L8 40L4 40L-4 35V-40Z" fill="url(#copper_gradient)" opacity="0.8"/>
+    <!-- Base des dents -->
+    <path d="M-6 -38H6V-20H-6V-38Z" fill="url(#copper_gradient)" opacity="0.9"/>
+    <!-- Dents de la fourchette -->
+    <path d="M-4.5 -38V-15 M-1.5 -38V-15 M1.5 -38V-15 M4.5 -38V-15" stroke="url(#copper_gradient)" stroke-width="2" opacity="0.9"/>
+  </g>
+
+  <!-- Toque de chef raffinée -->
+  <g transform="translate(0, -5)">
+    <!-- Base de la toque -->
+    <path d="M60 25
+             C35 25 25 40 25 55
+             C25 70 35 80 50 83
+             L50 88H70L70 83
+             C85 80 95 70 95 55
+             C95 40 85 25 60 25Z" 
+          fill="url(#copper_gradient)"/>
+    
+    <!-- Partie supérieure de la toque -->
+    <path d="M45 88H75V93C75 95 73 98 60 98C47 98 45 95 45 93V88Z" 
+          fill="url(#copper_gradient)"/>
+    
+    <!-- Plis de la toque -->
+    <path d="M30 55C30 55 45 65 60 65C75 65 90 55 90 55" 
+          stroke="url(#copper_gradient)" stroke-width="3" opacity="0.6"/>
+    <path d="M35 45C35 45 48 55 60 55C72 55 85 45 85 45" 
+          stroke="url(#copper_gradient)" stroke-width="3" opacity="0.6"/>
+    <path d="M40 35C40 35 50 45 60 45C70 45 80 35 80 35" 
+          stroke="url(#copper_gradient)" stroke-width="3" opacity="0.6"/>
+          
+    <!-- Bord décoratif de la toque -->
+    <path d="M25 55C25 55 35 58 60 58C85 58 95 55 95 55" 
+          stroke="url(#copper_gradient)" stroke-width="4" opacity="0.8"/>
+  </g>
+  
+  <!-- Gradient définition -->
+  <defs>
+    <linearGradient id="copper_gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#b8621b"/>
+      <stop offset="100%" style="stop-color:#8B4513"/>
+    </linearGradient>
+  </defs>
+</svg> 

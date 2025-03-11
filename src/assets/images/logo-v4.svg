@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="100" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Toque moderne -->
+  <g transform="translate(0, 5)">
+    <!-- Corps principal de la toque -->
+    <path d="M60 20
+             C40 20 30 35 30 50
+             C30 65 40 75 60 75
+             C80 75 90 65 90 50
+             C90 35 80 20 60 20Z" 
+          fill="url(#copper_gradient)"/>
+    
+    <!-- Partie supérieure bombée -->
+    <path d="M60 20
+             C45 20 35 30 35 40
+             C35 50 45 55 60 55
+             C75 55 85 50 85 40
+             C85 30 75 20 60 20Z" 
+          fill="url(#copper_gradient)" opacity="0.3"/>
+    
+    <!-- Base de la toque -->
+    <path d="M45 75H75V80C75 82 73 85 60 85C47 85 45 82 45 80V75Z" 
+          fill="url(#copper_gradient)"/>
+          
+    <!-- Détails élégants -->
+    <path d="M40 45C40 45 50 55 60 55C70 55 80 45 80 45" 
+          stroke="url(#copper_gradient)" stroke-width="2" opacity="0.6"/>
+    <path d="M35 55C35 55 48 65 60 65C72 65 85 55 85 55" 
+          stroke="url(#copper_gradient)" stroke-width="2" opacity="0.6"/>
+  </g>
+
+  <!-- Texte circulaire -->
+  <path id="curve" 
+        d="M60,115 A55,55 0 1,1 60,5 A55,55 0 1,1 60,115"
+        fill="none" 
+        opacity="0"/>
+  
+  <text>
+    <textPath href="#curve" startOffset="18%" fill="url(#copper_gradient)" font-size="12" font-family="Arial" letter-spacing="3">
+      PERSONAL   •   CHEF   •   CLUB
+    </textPath>
+  </text>
+
+  <!-- Étoiles décoratives -->
+  <g transform="translate(60, 25)">
+    <path d="M0 -5L1.5 -1.5L5 0L1.5 1.5L0 5L-1.5 1.5L-5 0L-1.5 -1.5Z" 
+          fill="url(#copper_gradient)" opacity="0.8"/>
+  </g>
+  <g transform="translate(40, 30)">
+    <path d="M0 -3L1 -1L3 0L1 1L0 3L-1 1L-3 0L-1 -1Z" 
+          fill="url(#copper_gradient)" opacity="0.6"/>
+  </g>
+  <g transform="translate(80, 30)">
+    <path d="M0 -3L1 -1L3 0L1 1L0 3L-1 1L-3 0L-1 -1Z" 
+          fill="url(#copper_gradient)" opacity="0.6"/>
+  </g>
+
+  <!-- Gradient définition -->
+  <defs>
+    <linearGradient id="copper_gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#b8621b"/>
+      <stop offset="100%" style="stop-color:#8B4513"/>
+    </linearGradient>
+  </defs>
+</svg> 
