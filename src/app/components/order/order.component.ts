@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractContro
 import { RouterLink } from '@angular/router';
 import { GoogleSheetsService } from '../../services/google-sheets.service';
 import { finalize } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-order',
@@ -22,13 +23,13 @@ export class OrderComponent {
     private cdr: ChangeDetectorRef
   ) {
     this.orderForm = this.fb.group({
-      nom: ['Cousein', [Validators.required]],
-      prenom: ['Kevin', [Validators.required]],
-      email: ['kevin.cousein@gmail.com', [Validators.required, Validators.email]],
-      telephone: ['0627591446', [Validators.required, this.phoneNumberValidator()]],
-      adresse: ['1 rue du Moulin', [Validators.required]],
-      codePostal: ['59320', [Validators.required]],
-      ville: ['Haubourdin', [Validators.required]],
+      nom: ['', [Validators.required]],
+      prenom: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      telephone: ['', [Validators.required, this.phoneNumberValidator()]],
+      adresse: ['', [Validators.required]],
+      codePostal: ['', [Validators.required]],
+      ville: ['', [Validators.required]],
       commentaires: [''],
       menus: this.fb.group({
         lundi: [false],
@@ -114,18 +115,36 @@ export class OrderComponent {
                   vendredi: false
                 }
               });
-              alert('Votre commande a été enregistrée avec succès !');
+              Swal.fire({
+                title: 'Commande validée !',
+                text: 'Votre commande a été enregistrée avec succès.',
+                icon: 'success',
+                confirmButtonText: 'Fermer',
+                confirmButtonColor: '#b8621b'
+              });
             },
             error: (error) => {
               console.error('Erreur lors de l\'enregistrement:', error);
-              alert('Une erreur est survenue lors de l\'enregistrement de votre commande. Veuillez réessayer.');
+              Swal.fire({
+                title: 'Erreur',
+                text: 'Une erreur est survenue lors de l\'enregistrement de votre commande. Veuillez réessayer.',
+                icon: 'error',
+                confirmButtonText: 'Fermer',
+                confirmButtonColor: '#b8621b'
+              });
             }
           });
       } catch (error) {
         this.isSubmitting = false;
         this.cdr.detectChanges();
         console.error('Erreur lors de la préparation des données:', error);
-        alert('Une erreur est survenue lors de la préparation de votre commande. Veuillez réessayer.');
+        Swal.fire({
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors de la préparation de votre commande. Veuillez réessayer.',
+          icon: 'error',
+          confirmButtonText: 'Fermer',
+          confirmButtonColor: '#b8621b'
+        });
       }
     }
   }
