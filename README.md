@@ -1,27 +1,54 @@
-# PersonalChefClub
+# Personal Chef Club
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+Application web Angular pour la mise en relation entre chefs à domicile et clients.
 
-## Development server
+## Technologies utilisées
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Angular 17
+- SCSS
+- TypeScript
+- Angular Material
 
-## Code scaffolding
+## Fonctionnalités
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Réservation de chefs à domicile
+- Gestion des menus personnalisés
+- Interface utilisateur moderne et responsive
+- Système de notation et commentaires
 
-## Build
+## Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Cloner le projet :
+```bash
+git clone https://github.com/Kwanez/personal-chef-club.git
+```
 
-## Running unit tests
+2. Installer les dépendances :
+```bash
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Lancer l'application en développement :
+```bash
+ng serve
+```
 
-## Running end-to-end tests
+4. Ouvrir l'application dans le navigateur :
+```
+http://localhost:4200
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Build de production
 
-## Further help
+Pour créer une version de production :
+```bash
+ng build --configuration production
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Auteur
+
+- Kwanez
+
+## License
+
+Ce projet est sous license MIT.
