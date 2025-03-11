@@ -452,4 +452,46 @@ h1 {
       transform: translateX(-3px);
     }
   }
+}
+
+.form-errors-summary {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba($error-color, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba($error-color, 0.2);
+
+  .error-title {
+    color: $error-color;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    li {
+      color: $error-color;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+      text-align: left;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &::before {
+        content: '•';
+        position: absolute;
+        left: 0.5rem;
+        color: $error-color;
+      }
+    }
+  }
 } 

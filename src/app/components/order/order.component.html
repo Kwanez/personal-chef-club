@@ -139,10 +139,17 @@
     </div>
 
     <div class="form-actions">
+      <div *ngIf="formErrors.length > 0" class="form-errors-summary">
+        <p class="error-title">Veuillez corriger les erreurs suivantes :</p>
+        <ul>
+          <li *ngFor="let error of formErrors">{{ error }}</li>
+        </ul>
+      </div>
+      
       <button type="submit" 
               class="submit-button" 
               [class.loading]="isSubmitting"
-              [disabled]="!orderForm.valid || isSubmitting">
+              [disabled]="isSubmitting">
         <div class="button-content">
           <div *ngIf="isSubmitting" class="spinner-container">
             <div class="spinner">

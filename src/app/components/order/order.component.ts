@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 export class OrderComponent {
   orderForm: FormGroup;
   isSubmitting = false;
+  formErrors: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -64,8 +65,54 @@ export class OrderComponent {
     };
   }
 
+  private getFormValidationErrors(): string[] {
+    const errors: string[] = [];
+    const controls = this.orderForm.controls;
+
+    if (controls['nom'].errors?.['required']) {
+      errors.push('Le nom est requis');
+    }
+    if (controls['prenom'].errors?.['required']) {
+      errors.push('Le prénom est requis');
+    }
+    if (controls['email'].errors?.['required']) {
+      errors.push('L\'email est requis');
+    } else if (controls['email'].errors?.['email']) {
+      errors.push('L\'email n\'est pas valide');
+    }
+    if (controls['telephone'].errors?.['required']) {
+      errors.push('Le téléphone est requis');
+    } else if (controls['telephone'].errors?.['invalidPhone']) {
+      errors.push('Le format du numéro de téléphone n\'est pas valide');
+    }
+    if (controls['adresse'].errors?.['required']) {
+      errors.push('L\'adresse est requise');
+    }
+    if (controls['codePostal'].errors?.['required']) {
+      errors.push('Le code postal est requis');
+    }
+    if (controls['ville'].errors?.['required']) {
+      errors.push('La ville est requise');
+    }
+
+    return errors;
+  }
+
   onSubmit(): void {
-    if (this.orderForm.valid && !this.isSubmitting) {
+    this.formErrors = this.getFormValidationErrors();
+    
+    if (this.formErrors.length > 0) {
+      // Scroll jusqu'aux erreurs avec une animation douce
+      setTimeout(() => {
+        const errorsSummary = document.querySelector('.form-errors-summary');
+        if (errorsSummary) {
+          errorsSummary.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+      return;
+    }
+    
+    if (!this.isSubmitting) {
       this.isSubmitting = true;
       this.cdr.detectChanges();
       
