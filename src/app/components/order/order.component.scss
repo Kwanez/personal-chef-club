@@ -231,45 +231,107 @@ h1 {
     background: $copper-gradient;
     color: white;
     border: none;
-    padding: 1.2rem 4rem;
+    padding: 1.2rem 3rem;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s ease;
+    min-width: 280px;
     position: relative;
-    overflow: hidden;
 
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
-      transform: translateX(-100%);
-      transition: transform 0.5s ease;
-    }
-
-    &:hover {
+    &:not(:disabled):hover {
       transform: translateY(-2px);
-
-      &::after {
-        transform: translateX(100%);
-      }
     }
 
     &:disabled {
-      background: #ccc;
+      background: #999;
       cursor: not-allowed;
-      transform: none;
+      opacity: 0.7;
+    }
 
-      &::after {
-        display: none;
+    &.loading {
+      pointer-events: none;
+    }
+
+    .button-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .spinner-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 40px;
+      height: 40px;
+    }
+
+    .spinner {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      
+      // Marmite
+      &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 32px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid white;
+        border-radius: 0 0 16px 16px;
+      }
+
+      // Bulles
+      .bubble {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0;
+
+        &:nth-child(1) {
+          left: 35%;
+          animation: bubble 2s ease-in infinite;
+        }
+
+        &:nth-child(2) {
+          left: 50%;
+          animation: bubble 2s ease-in infinite 0.4s;
+        }
+
+        &:nth-child(3) {
+          left: 65%;
+          animation: bubble 2s ease-in infinite 0.8s;
+        }
       }
     }
+  }
+}
+
+@keyframes bubble {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px) scale(1.2);
+    opacity: 0;
   }
 }
 

@@ -51,6 +51,9 @@
           <div class="error-message" *ngIf="orderForm.get('telephone')?.errors?.['required'] && orderForm.get('telephone')?.touched">
             Le téléphone est requis
           </div>
+          <div class="error-message" *ngIf="orderForm.get('telephone')?.errors?.['invalidPhone'] && orderForm.get('telephone')?.touched">
+            Le format du numéro de téléphone n'est pas valide
+          </div>
         </div>
       </div>
     </div>
@@ -136,8 +139,20 @@
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="submit-button" [disabled]="!orderForm.valid">
-        Valider la commande
+      <button type="submit" 
+              class="submit-button" 
+              [class.loading]="isSubmitting"
+              [disabled]="!orderForm.valid || isSubmitting">
+        <div class="button-content">
+          <div *ngIf="isSubmitting" class="spinner-container">
+            <div class="spinner">
+              <div class="bubble"></div>
+              <div class="bubble"></div>
+              <div class="bubble"></div>
+            </div>
+          </div>
+          <span>{{ isSubmitting ? 'Traitement en cours...' : 'Valider la commande' }}</span>
+        </div>
       </button>
     </div>
   </form>
