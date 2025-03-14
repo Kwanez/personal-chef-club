@@ -4,6 +4,6 @@ import { OrderComponent } from './components/order/order.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'commander', component: OrderComponent },
+  { path: 'order', component: OrderComponent },
   { path: '**', redirectTo: '' }
 ];

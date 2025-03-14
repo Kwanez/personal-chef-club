@@ -2,33 +2,33 @@
   <div class="back-button-container">
     <a routerLink="/" class="back-button">
       <span class="back-icon">←</span>
-      Retour
+      Back
     </a>
   </div>
 
   <h1>
-    Commander vos repas
-    <span>Une expérience gastronomique unique</span>
+    Order your meals
+    <span>A unique gastronomic experience</span>
   </h1>
   
   <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="order-form">
-    <div class="form-section personal-info">
-      <h2>Informations personnelles</h2>
+    <div class="form-section personal-info" formGroupName="personalInfo">
+      <h2>Personal Information</h2>
       
       <div class="form-row">
         <div class="form-group">
-          <label for="nom">Nom *</label>
-          <input id="nom" type="text" formControlName="nom" placeholder="Votre nom">
-          <div class="error-message" *ngIf="orderForm.get('nom')?.errors?.['required'] && orderForm.get('nom')?.touched">
-            Le nom est requis
+          <label for="lastName">Last Name *</label>
+          <input id="lastName" type="text" formControlName="lastName" placeholder="Your last name">
+          <div class="error-message" *ngIf="orderForm.get('personalInfo.lastName')?.errors?.['required'] && orderForm.get('personalInfo.lastName')?.touched">
+            Last name is required
           </div>
         </div>
 
         <div class="form-group">
-          <label for="prenom">Prénom *</label>
-          <input id="prenom" type="text" formControlName="prenom" placeholder="Votre prénom">
-          <div class="error-message" *ngIf="orderForm.get('prenom')?.errors?.['required'] && orderForm.get('prenom')?.touched">
-            Le prénom est requis
+          <label for="firstName">First Name *</label>
+          <input id="firstName" type="text" formControlName="firstName" placeholder="Your first name">
+          <div class="error-message" *ngIf="orderForm.get('personalInfo.firstName')?.errors?.['required'] && orderForm.get('personalInfo.firstName')?.touched">
+            First name is required
           </div>
         </div>
       </div>
@@ -36,111 +36,259 @@
       <div class="form-row">
         <div class="form-group">
           <label for="email">Email *</label>
-          <input id="email" type="email" formControlName="email" placeholder="votre@email.com">
-          <div class="error-message" *ngIf="orderForm.get('email')?.errors?.['required'] && orderForm.get('email')?.touched">
-            L'email est requis
+          <input id="email" type="email" formControlName="email" placeholder="your@email.com">
+          <div class="error-message" *ngIf="orderForm.get('personalInfo.email')?.errors?.['required'] && orderForm.get('personalInfo.email')?.touched">
+            Email is required
           </div>
-          <div class="error-message" *ngIf="orderForm.get('email')?.errors?.['email'] && orderForm.get('email')?.touched">
-            L'email n'est pas valide
+          <div class="error-message" *ngIf="orderForm.get('personalInfo.email')?.errors?.['email'] && orderForm.get('personalInfo.email')?.touched">
+            Email is not valid
           </div>
         </div>
 
         <div class="form-group">
-          <label for="telephone">Téléphone *</label>
-          <input id="telephone" type="tel" formControlName="telephone" placeholder="Votre numéro">
-          <div class="error-message" *ngIf="orderForm.get('telephone')?.errors?.['required'] && orderForm.get('telephone')?.touched">
-            Le téléphone est requis
+          <label for="phone">Phone *</label>
+          <input id="phone" type="tel" formControlName="phone" placeholder="Your phone number">
+          <div class="error-message" *ngIf="orderForm.get('personalInfo.phone')?.errors?.['required'] && orderForm.get('personalInfo.phone')?.touched">
+            Phone number is required
           </div>
-          <div class="error-message" *ngIf="orderForm.get('telephone')?.errors?.['invalidPhone'] && orderForm.get('telephone')?.touched">
-            Le format du numéro de téléphone n'est pas valide
+          <div class="error-message" *ngIf="orderForm.get('personalInfo.phone')?.errors?.['pattern'] && orderForm.get('personalInfo.phone')?.touched">
+            Phone number format is not valid
           </div>
         </div>
       </div>
     </div>
 
-    <div class="form-section address-info">
-      <h2>Adresse de livraison</h2>
+    <div class="form-section address-info" formGroupName="address">
+      <h2>Delivery Address</h2>
       
       <div class="form-group full-width">
-        <label for="adresse">Adresse *</label>
-        <input id="adresse" type="text" formControlName="adresse" placeholder="Votre adresse">
-        <div class="error-message" *ngIf="orderForm.get('adresse')?.errors?.['required'] && orderForm.get('adresse')?.touched">
-          L'adresse est requise
+        <label for="street">Address *</label>
+        <input id="street" type="text" formControlName="street" placeholder="Your address">
+        <div class="error-message" *ngIf="orderForm.get('address.street')?.errors?.['required'] && orderForm.get('address.street')?.touched">
+          Address is required
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="codePostal">Code Postal *</label>
-          <input id="codePostal" type="text" formControlName="codePostal" placeholder="Code postal">
-          <div class="error-message" *ngIf="orderForm.get('codePostal')?.errors?.['required'] && orderForm.get('codePostal')?.touched">
-            Le code postal est requis
+          <label for="postalCode">Postal Code *</label>
+          <input id="postalCode" type="text" formControlName="postalCode" placeholder="Postal code">
+          <div class="error-message" *ngIf="orderForm.get('address.postalCode')?.errors?.['required'] && orderForm.get('address.postalCode')?.touched">
+            Postal code is required
+          </div>
+          <div class="error-message" *ngIf="orderForm.get('address.postalCode')?.errors?.['pattern'] && orderForm.get('address.postalCode')?.touched">
+            Postal code must contain 5 digits
           </div>
         </div>
 
         <div class="form-group">
-          <label for="ville">Ville *</label>
-          <input id="ville" type="text" formControlName="ville" placeholder="Ville">
-          <div class="error-message" *ngIf="orderForm.get('ville')?.errors?.['required'] && orderForm.get('ville')?.touched">
-            La ville est requise
+          <label for="city">City *</label>
+          <input id="city" type="text" formControlName="city" placeholder="City">
+          <div class="error-message" *ngIf="orderForm.get('address.city')?.errors?.['required'] && orderForm.get('address.city')?.touched">
+            City is required
           </div>
         </div>
       </div>
     </div>
 
-    <div class="form-section menu-selection" formGroupName="menus">
-      <h2>Sélection des menus</h2>
-      <p class="section-description">Sélectionnez les jours où vous souhaitez être livré</p>
+    <div class="form-section menu-selection" formGroupName="menuSelection">
+      <h2>Menu Selection</h2>
+      <p class="section-description">Select the days you want to be delivered</p>
       
       <div class="menu-grid">
         <div class="menu-day">
           <label class="checkbox-container">
-            <input type="checkbox" formControlName="lundi">
+            <input type="checkbox" formControlName="monday">
             <span class="checkmark"></span>
-            Lundi
+            Monday
           </label>
         </div>
         <div class="menu-day">
           <label class="checkbox-container">
-            <input type="checkbox" formControlName="mardi">
+            <input type="checkbox" formControlName="tuesday">
             <span class="checkmark"></span>
-            Mardi
+            Tuesday
           </label>
         </div>
         <div class="menu-day">
           <label class="checkbox-container">
-            <input type="checkbox" formControlName="mercredi">
+            <input type="checkbox" formControlName="wednesday">
             <span class="checkmark"></span>
-            Mercredi
+            Wednesday
           </label>
         </div>
         <div class="menu-day">
           <label class="checkbox-container">
-            <input type="checkbox" formControlName="jeudi">
+            <input type="checkbox" formControlName="thursday">
             <span class="checkmark"></span>
-            Jeudi
+            Thursday
           </label>
         </div>
         <div class="menu-day">
           <label class="checkbox-container">
-            <input type="checkbox" formControlName="vendredi">
+            <input type="checkbox" formControlName="friday">
             <span class="checkmark"></span>
-            Vendredi
+            Friday
+          </label>
+        </div>
+        <div class="menu-day">
+          <label class="checkbox-container">
+            <input type="checkbox" formControlName="saturday">
+            <span class="checkmark"></span>
+            Saturday
+          </label>
+        </div>
+        <div class="menu-day">
+          <label class="checkbox-container">
+            <input type="checkbox" formControlName="sunday">
+            <span class="checkmark"></span>
+            Sunday
           </label>
         </div>
       </div>
     </div>
 
+    <!-- Section des préférences culinaires -->
+    <div class="form-section" formGroupName="preferences">
+      <h2>Culinary Preferences</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="budget">Monthly meal budget</label>
+          <select id="budget" formControlName="budget" class="form-control">
+            <option value="">Select your budget</option>
+            <option value="low">Less than 500€</option>
+            <option value="medium">500€ - 1000€</option>
+            <option value="high">More than 1000€</option>
+          </select>
+          <div class="error-message" *ngIf="orderForm.get('preferences.budget')?.errors?.['required'] && orderForm.get('preferences.budget')?.touched">
+            Budget is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Do you use delivery platforms?</label>
+          <div class="checkbox-group">
+            <div class="checkbox-container">
+              <input type="checkbox" id="deliveroo" formControlName="deliveroo">
+              <label for="deliveroo">Deliveroo</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="ubereats" formControlName="ubereats">
+              <label for="ubereats">Uber Eats</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="justeat" formControlName="justeat">
+              <label for="justeat">Just Eat</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="other" formControlName="otherDelivery">
+              <label for="other">Other</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="restaurantFrequency">How often do you eat out?</label>
+          <select id="restaurantFrequency" formControlName="restaurantFrequency" class="form-control">
+            <option value="">Select frequency</option>
+            <option value="never">Never</option>
+            <option value="rarely">Rarely (1-2 times/month)</option>
+            <option value="sometimes">Sometimes (1-2 times/week)</option>
+            <option value="often">Often (3-4 times/week)</option>
+            <option value="veryOften">Very often (5+ times/week)</option>
+          </select>
+          <div class="error-message" *ngIf="orderForm.get('preferences.restaurantFrequency')?.errors?.['required'] && orderForm.get('preferences.restaurantFrequency')?.touched">
+            Restaurant frequency is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preferred food types</label>
+          <div class="checkbox-group">
+            <div class="checkbox-container">
+              <input type="checkbox" id="french" [formControl]="favoriteFoodControl" value="french">
+              <label for="french">French cuisine</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="italian" [formControl]="favoriteFoodControl" value="italian">
+              <label for="italian">Italian cuisine</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="japanese" [formControl]="favoriteFoodControl" value="japanese">
+              <label for="japanese">Japanese cuisine</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="chinese" [formControl]="favoriteFoodControl" value="chinese">
+              <label for="chinese">Chinese cuisine</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="indian" [formControl]="favoriteFoodControl" value="indian">
+              <label for="indian">Indian cuisine</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="mexican" [formControl]="favoriteFoodControl" value="mexican">
+              <label for="mexican">Mexican cuisine</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="vegetarian" [formControl]="favoriteFoodControl" value="vegetarian">
+              <label for="vegetarian">Vegetarian</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="vegan" [formControl]="favoriteFoodControl" value="vegan">
+              <label for="vegan">Vegan</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="seafood" [formControl]="favoriteFoodControl" value="seafood">
+              <label for="seafood">Seafood</label>
+            </div>
+            <div class="checkbox-container">
+              <input type="checkbox" id="meat" [formControl]="favoriteFoodControl" value="meat">
+              <label for="meat">Meat</label>
+            </div>
+          </div>
+          <div class="error-message" *ngIf="orderForm.get('preferences.favoriteFood')?.errors?.['required'] && orderForm.get('preferences.favoriteFood')?.touched">
+            Please select at least one preferred food type
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section des commentaires et découverte -->
     <div class="form-section">
+      <h2>Additional Information</h2>
+      
+      <div class="form-row" formGroupName="preferences">
+        <div class="form-group">
+          <label for="discovery">How did you hear about our service?</label>
+          <select id="discovery" formControlName="discovery" class="form-control">
+            <option value="">Select an option</option>
+            <option value="google">Google</option>
+            <option value="social">Social media</option>
+            <option value="friend">Friend recommendation</option>
+            <option value="advertisement">Advertisement</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="error-message" *ngIf="orderForm.get('preferences.discovery')?.errors?.['required'] && orderForm.get('preferences.discovery')?.touched">
+            Please indicate how you heard about our service
+          </div>
+        </div>
+      </div>
+
       <div class="form-group full-width">
-        <label for="commentaires">Commentaires</label>
-        <textarea id="commentaires" formControlName="commentaires" rows="4" placeholder="Commentaires ou instructions spéciales"></textarea>
+        <label for="comments">Comments</label>
+        <textarea id="comments" formControlName="comments" rows="4" placeholder="Comments or special instructions"></textarea>
       </div>
     </div>
 
     <div class="form-actions">
       <div *ngIf="formErrors.length > 0" class="form-errors-summary">
-        <p class="error-title">Veuillez corriger les erreurs suivantes :</p>
+        <p class="error-title">Please correct the following errors:</p>
         <ul>
           <li *ngFor="let error of formErrors">{{ error }}</li>
         </ul>
@@ -158,7 +306,7 @@
               <div class="bubble"></div>
             </div>
           </div>
-          <span>{{ isSubmitting ? 'Traitement en cours...' : 'Valider la commande' }}</span>
+          <span>{{ isSubmitting ? 'Processing...' : 'Submit order' }}</span>
         </div>
       </button>
     </div>

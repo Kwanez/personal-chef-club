@@ -1,11 +1,17 @@
 // Variables
-$primary-color: #1a1a1a; // Noir profond
-$secondary-color: #c4a484; // Beige doré
-$accent-color: #8b4513; // Marron foncé
-$background-color: #faf6f1; // Beige clair
-$border-color: #e0d5c8; // Beige gris
-$text-color: #2c2c2c; // Gris foncé
-$gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
+$primary-color: #002395; // Bleu français
+$secondary-color: #ED2939; // Rouge français
+$accent-color: #FFFFFF; // Blanc
+$background-color: #FFFFFF; // Blanc
+$border-color: #E5E5E5; // Gris très clair
+$text-color: #333333; // Gris foncé
+$french-gradient: linear-gradient(135deg, 
+  $primary-color 0%,
+  $primary-color 40%,
+  $accent-color 50%,
+  $secondary-color 60%,
+  $secondary-color 100%
+);
 
 // Mixins
 @mixin responsive($breakpoint) {
@@ -22,24 +28,34 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  background: $background-color;
 }
 
 // Hero Section
 .hero-section {
   text-align: center;
-  padding: 0px 20px 20px 20px;
+  padding: 40px 20px;
   background: $background-color;
-  color: $primary-color;
+  color: $text-color;
   border-radius: 12px;
   margin-bottom: 30px;
   position: relative;
-  border: 1px solid $border-color;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  border-image: linear-gradient(90deg, 
+    rgba($primary-color, 0.2) 0%,
+    rgba($primary-color, 0.2) 35%,
+    rgba($accent-color, 0.2) 45%,
+    rgba($accent-color, 0.2) 55%,
+    rgba($secondary-color, 0.2) 65%,
+    rgba($secondary-color, 0.2) 100%
+  ) 1;
 
   .logo-container {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     position: relative;
-    padding-bottom: 0.8rem;
+    padding-bottom: 1rem;
     
     &::after {
       content: '';
@@ -47,11 +63,11 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 60px;
-      height: 1px;
+      width: 120px;
+      height: 2px;
       background: linear-gradient(90deg, 
         transparent 0%, 
-        $secondary-color 20%, 
+        $primary-color 20%, 
         $accent-color 50%, 
         $secondary-color 80%, 
         transparent 100%
@@ -59,13 +75,24 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
     }
     
     .logo {
-      width: 160px;
-      height: 160px;
-      transition: transform 0.3s ease;
-      margin-bottom: 0.3rem;
+      width: 300px;
+      height: 300px;
+      object-fit: contain;
+      transition: all 0.4s ease;
+      margin-bottom: 0.5rem;
+      border-radius: 50%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 3px solid rgba($primary-color, 0.1);
 
       &:hover {
-        transform: scale(1.05);
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        border-color: rgba($primary-color, 0.2);
+      }
+
+      @include responsive(mobile) {
+        width: 250px;
+        height: 250px;
       }
     }
   }
@@ -76,7 +103,7 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
     margin-bottom: 2.5rem;
     font-weight: 300;
     letter-spacing: 1.5px;
-    color: $accent-color;
+    color: $primary-color;
     position: relative;
 
     @include responsive(mobile) {
@@ -85,52 +112,57 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
     }
   }
 
-  h1 {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
-    font-weight: 300;
-    letter-spacing: 3px;
-    position: relative;
-    display: inline-block;
-    padding-bottom: 20px;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 3px;
-      background: $gold-gradient;
-    }
-
-    @include responsive(mobile) {
-      font-size: 2.5rem;
-    }
-  }
-
   .cta-button {
     display: inline-block;
-    background: $gold-gradient;
-    color: white;
+    background: linear-gradient(90deg, 
+      $primary-color 0%,
+      $primary-color 35%,
+      $accent-color 45%,
+      $accent-color 55%,
+      $secondary-color 65%,
+      $secondary-color 100%
+    );
+    color: $accent-color;
     text-decoration: none;
-    padding: 1rem 3rem;
+    padding: 1.2rem 3.5rem;
     border-radius: 50px;
     font-size: 1.1rem;
-    font-weight: 400;
+    font-weight: 500;
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 2px;
-    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 35, 149, 0.15);
+    position: relative;
+    overflow: hidden;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.2) 0%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
+      box-shadow: 0 6px 20px rgba(0, 35, 149, 0.25);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+
+      &::before {
+        opacity: 1;
+      }
     }
 
     @include responsive(mobile) {
-      padding: 0.8rem 2rem;
+      padding: 1rem 2.5rem;
       font-size: 1rem;
     }
   }
@@ -139,11 +171,20 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
 // About Section
 .about-section {
   padding: 60px 40px;
-  background: white;
+  background: $background-color;
   border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
   margin-bottom: 60px;
-  border: 1px solid $border-color;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-image: linear-gradient(90deg, 
+    rgba($primary-color, 0.2) 0%,
+    rgba($primary-color, 0.2) 35%,
+    rgba($accent-color, 0.2) 45%,
+    rgba($accent-color, 0.2) 55%,
+    rgba($secondary-color, 0.2) 65%,
+    rgba($secondary-color, 0.2) 100%
+  ) 1;
 
   h2 {
     color: $primary-color;
@@ -161,9 +202,15 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: $gold-gradient;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        $primary-color 0%,
+        $primary-color 40%,
+        $accent-color 50%,
+        $secondary-color 60%,
+        $secondary-color 100%
+      );
     }
   }
 
@@ -200,9 +247,15 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: $gold-gradient;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        $primary-color 0%,
+        $primary-color 40%,
+        $accent-color 50%,
+        $secondary-color 60%,
+        $secondary-color 100%
+      );
     }
   }
 }
@@ -215,16 +268,25 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
 }
 
 .menu-card {
-  background: white;
+  background: $background-color;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  border: 1px solid $border-color;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-image: linear-gradient(90deg, 
+    rgba($primary-color, 0.2) 0%,
+    rgba($primary-color, 0.2) 35%,
+    rgba($accent-color, 0.2) 45%,
+    rgba($accent-color, 0.2) 55%,
+    rgba($secondary-color, 0.2) 65%,
+    rgba($secondary-color, 0.2) 100%
+  ) 1;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
   }
 
   .menu-image {
@@ -244,7 +306,7 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
       top: 20px;
       right: 20px;
       background: rgba(255, 255, 255, 0.95);
-      color: $accent-color;
+      color: $primary-color;
       padding: 8px 16px;
       border-radius: 25px;
       font-weight: 500;
@@ -280,7 +342,7 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
       margin-bottom: 25px;
 
       h4 {
-        color: $accent-color;
+        color: $secondary-color;
         margin-bottom: 12px;
         font-weight: 500;
         letter-spacing: 1px;
@@ -294,18 +356,19 @@ $gold-gradient: linear-gradient(135deg, #c4a484, #8b4513);
           display: inline-block;
           margin-right: 10px;
           margin-bottom: 8px;
-          background-color: $background-color;
+          background-color: rgba($primary-color, 0.05);
           padding: 6px 12px;
           border-radius: 20px;
           font-size: 0.95rem;
-          border: 1px solid $border-color;
+          border: 1px solid rgba($primary-color, 0.1);
+          color: $primary-color;
         }
       }
     }
 
     .allergenes {
       font-size: 0.95rem;
-      color: $accent-color;
+      color: $secondary-color;
       margin-bottom: 25px;
       font-style: italic;
     }

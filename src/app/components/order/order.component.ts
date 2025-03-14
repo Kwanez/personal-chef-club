@@ -1,10 +1,11 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors, FormControl } from '@angular/forms';
+import { RouterLink, Router } from '@angular/router';
 import { GoogleSheetsService } from '../../services/google-sheets.service';
 import { finalize } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-order',
@@ -13,7 +14,7 @@ import Swal from 'sweetalert2';
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.scss']
 })
-export class OrderComponent {
+export class OrderComponent implements OnInit {
   orderForm: FormGroup;
   isSubmitting = false;
   formErrors: string[] = [];
@@ -21,25 +22,51 @@ export class OrderComponent {
   constructor(
     private fb: FormBuilder,
     private googleSheetsService: GoogleSheetsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private viewportScroller: ViewportScroller
   ) {
     this.orderForm = this.fb.group({
-      nom: ['', [Validators.required]],
-      prenom: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      telephone: ['', [Validators.required, this.phoneNumberValidator()]],
-      adresse: ['', [Validators.required]],
-      codePostal: ['', [Validators.required]],
-      ville: ['', [Validators.required]],
-      commentaires: [''],
-      menus: this.fb.group({
-        lundi: [false],
-        mardi: [false],
-        mercredi: [false],
-        jeudi: [false],
-        vendredi: [false]
-      })
+      personalInfo: this.fb.group({
+        lastName: ['', [Validators.required]],
+        firstName: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]]
+      }),
+      address: this.fb.group({
+        street: ['', [Validators.required]],
+        postalCode: ['', [Validators.required, Validators.pattern(/^[0-9]{5}$/)]],
+        city: ['', [Validators.required]]
+      }),
+      preferences: this.fb.group({
+        budget: ['', [Validators.required]],
+        deliveroo: [false],
+        ubereats: [false],
+        justeat: [false],
+        otherDelivery: [false],
+        restaurantFrequency: ['', [Validators.required]],
+        favoriteFood: [[], [Validators.required]],
+        discovery: ['', [Validators.required]],
+        dietaryRestrictions: [[]],
+        allergies: [''],
+        cookingPreferences: [''],
+        spiceLevel: ['']
+      }),
+      menuSelection: this.fb.group({
+        monday: [false],
+        tuesday: [false],
+        wednesday: [false],
+        thursday: [false],
+        friday: [false],
+        saturday: [false],
+        sunday: [false]
+      }),
+      comments: ['']
     });
+  }
+
+  ngOnInit(): void {
+    // Le formulaire est initialisé vide
   }
 
   phoneNumberValidator() {
@@ -65,34 +92,66 @@ export class OrderComponent {
     };
   }
 
-  private getFormValidationErrors(): string[] {
+  getFormValidationErrors(): string[] {
     const errors: string[] = [];
-    const controls = this.orderForm.controls;
+    const form = this.orderForm;
 
-    if (controls['nom'].errors?.['required']) {
-      errors.push('Le nom est requis');
+    // Validation des informations personnelles
+    const personalInfo = form.get('personalInfo');
+    if (personalInfo?.get('lastName')?.errors?.['required']) {
+      errors.push('Last name is required');
     }
-    if (controls['prenom'].errors?.['required']) {
-      errors.push('Le prénom est requis');
+    if (personalInfo?.get('firstName')?.errors?.['required']) {
+      errors.push('First name is required');
     }
-    if (controls['email'].errors?.['required']) {
-      errors.push('L\'email est requis');
-    } else if (controls['email'].errors?.['email']) {
-      errors.push('L\'email n\'est pas valide');
+    if (personalInfo?.get('email')?.errors?.['required']) {
+      errors.push('Email is required');
     }
-    if (controls['telephone'].errors?.['required']) {
-      errors.push('Le téléphone est requis');
-    } else if (controls['telephone'].errors?.['invalidPhone']) {
-      errors.push('Le format du numéro de téléphone n\'est pas valide');
+    if (personalInfo?.get('email')?.errors?.['email']) {
+      errors.push('Email is not valid');
     }
-    if (controls['adresse'].errors?.['required']) {
-      errors.push('L\'adresse est requise');
+    if (personalInfo?.get('phone')?.errors?.['required']) {
+      errors.push('Phone number is required');
     }
-    if (controls['codePostal'].errors?.['required']) {
-      errors.push('Le code postal est requis');
+    if (personalInfo?.get('phone')?.errors?.['pattern']) {
+      errors.push('Phone number format is not valid');
     }
-    if (controls['ville'].errors?.['required']) {
-      errors.push('La ville est requise');
+
+    // Validation de l'adresse
+    const address = form.get('address');
+    if (address?.get('street')?.errors?.['required']) {
+      errors.push('Address is required');
+    }
+    if (address?.get('postalCode')?.errors?.['required']) {
+      errors.push('Postal code is required');
+    }
+    if (address?.get('postalCode')?.errors?.['pattern']) {
+      errors.push('Postal code must contain 5 digits');
+    }
+    if (address?.get('city')?.errors?.['required']) {
+      errors.push('City is required');
+    }
+
+    // Validation des préférences
+    const preferences = form.get('preferences');
+    if (preferences?.get('budget')?.errors?.['required']) {
+      errors.push('Budget is required');
+    }
+    if (preferences?.get('restaurantFrequency')?.errors?.['required']) {
+      errors.push('Restaurant frequency is required');
+    }
+    if (preferences?.get('favoriteFood')?.errors?.['required']) {
+      errors.push('Please select at least one preferred food type');
+    }
+    if (preferences?.get('discovery')?.errors?.['required']) {
+      errors.push('Please indicate how you heard about our service');
+    }
+
+    // Validation de la sélection des menus
+    const menuSelection = form.get('menuSelection');
+    const hasSelectedDay = Object.values(menuSelection?.value || {}).some((value: unknown) => value === true);
+    if (!hasSelectedDay) {
+      errors.push('Please select at least one delivery day');
     }
 
     return errors;
@@ -102,7 +161,6 @@ export class OrderComponent {
     this.formErrors = this.getFormValidationErrors();
     
     if (this.formErrors.length > 0) {
-      // Scroll jusqu'aux erreurs avec une animation douce
       setTimeout(() => {
         const errorsSummary = document.querySelector('.form-errors-summary');
         if (errorsSummary) {
@@ -118,22 +176,39 @@ export class OrderComponent {
       
       try {
         const formData = this.orderForm.value;
-        const joursSelectionnes = Object.entries(formData.menus)
+        const joursSelectionnes = Object.entries(formData.menuSelection)
           .filter(([_, value]) => value)
           .map(([jour]) => jour)
           .join(', ');
 
         const rowData = [
           new Date().toLocaleString('fr-FR'),
-          formData.nom,
-          formData.prenom,
-          formData.email,
-          formData.telephone,
-          formData.adresse,
-          formData.codePostal,
-          formData.ville,
+          // Informations personnelles
+          formData.personalInfo.lastName,
+          formData.personalInfo.firstName,
+          formData.personalInfo.email,
+          formData.personalInfo.phone,
+          // Adresse
+          formData.address.street,
+          formData.address.postalCode,
+          formData.address.city,
+          // Préférences
+          formData.preferences.budget,
+          formData.preferences.deliveroo ? 'Oui' : 'Non',
+          formData.preferences.ubereats ? 'Oui' : 'Non',
+          formData.preferences.justeat ? 'Oui' : 'Non',
+          formData.preferences.otherDelivery ? 'Oui' : 'Non',
+          formData.preferences.restaurantFrequency,
+          formData.preferences.favoriteFood.join(', '),
+          formData.preferences.discovery,
+          formData.preferences.dietaryRestrictions?.join(', ') || '',
+          formData.preferences.allergies || '',
+          formData.preferences.cookingPreferences || '',
+          formData.preferences.spiceLevel || '',
+          // Sélection des menus
           joursSelectionnes,
-          formData.commentaires
+          // Commentaires
+          formData.comments
         ];
 
         this.googleSheetsService.appendRow(rowData)
@@ -146,37 +221,64 @@ export class OrderComponent {
           .subscribe({
             next: () => {
               this.orderForm.reset({
-                nom: '',
-                prenom: '',
-                email: '',
-                telephone: '',
-                adresse: '',
-                codePostal: '',
-                ville: '',
-                commentaires: '',
-                menus: {
-                  lundi: false,
-                  mardi: false,
-                  mercredi: false,
-                  jeudi: false,
-                  vendredi: false
-                }
+                personalInfo: {
+                  lastName: '',
+                  firstName: '',
+                  email: '',
+                  phone: ''
+                },
+                address: {
+                  street: '',
+                  postalCode: '',
+                  city: ''
+                },
+                preferences: {
+                  budget: '',
+                  deliveroo: false,
+                  ubereats: false,
+                  justeat: false,
+                  otherDelivery: false,
+                  restaurantFrequency: '',
+                  favoriteFood: [],
+                  discovery: '',
+                  dietaryRestrictions: [],
+                  allergies: '',
+                  cookingPreferences: '',
+                  spiceLevel: ''
+                },
+                menuSelection: {
+                  monday: false,
+                  tuesday: false,
+                  wednesday: false,
+                  thursday: false,
+                  friday: false,
+                  saturday: false,
+                  sunday: false
+                },
+                comments: ''
               });
               Swal.fire({
-                title: 'Commande validée !',
-                text: 'Votre commande a été enregistrée avec succès.',
+                title: 'Success!',
+                text: 'Your order has been successfully registered.',
                 icon: 'success',
-                confirmButtonText: 'Fermer',
-                confirmButtonColor: '#b8621b'
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#002395',
+                customClass: {
+                  confirmButton: 'swal2-confirm-button'
+                }
+              }).then(() => {
+                this.router.navigate(['/']).then(() => {
+                  this.viewportScroller.scrollToPosition([0, 0]);
+                });
               });
             },
             error: (error) => {
-              console.error('Erreur lors de l\'enregistrement:', error);
+              console.error('Error during registration:', error);
               Swal.fire({
-                title: 'Erreur',
-                text: 'Une erreur est survenue lors de l\'enregistrement de votre commande. Veuillez réessayer.',
+                title: 'Error',
+                text: 'An error occurred while registering your order. Please try again.',
                 icon: 'error',
-                confirmButtonText: 'Fermer',
+                confirmButtonText: 'Close',
                 confirmButtonColor: '#b8621b'
               });
             }
@@ -184,15 +286,19 @@ export class OrderComponent {
       } catch (error) {
         this.isSubmitting = false;
         this.cdr.detectChanges();
-        console.error('Erreur lors de la préparation des données:', error);
+        console.error('Error while preparing data:', error);
         Swal.fire({
-          title: 'Erreur',
-          text: 'Une erreur est survenue lors de la préparation de votre commande. Veuillez réessayer.',
+          title: 'Error',
+          text: 'An error occurred while preparing your order. Please try again.',
           icon: 'error',
-          confirmButtonText: 'Fermer',
+          confirmButtonText: 'Close',
           confirmButtonColor: '#b8621b'
         });
       }
     }
+  }
+
+  get favoriteFoodControl(): FormControl {
+    return this.orderForm.get('preferences.favoriteFood') as FormControl;
   }
 } 

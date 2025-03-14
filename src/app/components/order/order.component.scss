@@ -1,12 +1,24 @@
 // Variables
-$primary-color: #2d3436; // Gris foncé élégant
-$accent-color: #b8621b; // Orange cuivré
-$background-color: #f7f3f0; // Blanc cassé
-$text-color: #2d3436; // Gris foncé
-$border-color: #e3e3e3; // Gris clair
+$primary-color: #002395; // Bleu français
+$secondary-color: #ED2939; // Rouge français
+$accent-color: #FFFFFF; // Blanc
+$background-color: #FFFFFF; // Blanc
+$text-color: #333333; // Gris foncé
+$text-muted: #666666; // Gris moyen
+$border-color: #E5E5E5; // Gris très clair
 $success-color: #34495e; // Bleu nuit
 $error-color: #d35400; // Orange foncé
-$copper-gradient: linear-gradient(135deg, #b8621b, #8B4513);
+$hover-color: #d4a373;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+$french-gradient: linear-gradient(90deg, 
+  $primary-color 0%,
+  $primary-color 35%,
+  $accent-color 45%,
+  $accent-color 55%,
+  $secondary-color 65%,
+  $secondary-color 100%
+);
 
 .order-container {
   max-width: 900px;
@@ -66,7 +78,7 @@ h1 {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    background: $copper-gradient;
+    background: $french-gradient;
   }
 
   &::before {
@@ -85,7 +97,7 @@ h1 {
     display: block;
     font-size: 1rem;
     letter-spacing: 4px;
-    color: $accent-color;
+    color: $secondary-color;
     margin-top: 1rem;
     font-weight: 400;
     text-transform: uppercase;
@@ -104,9 +116,19 @@ h1 {
     background: white;
     margin-bottom: 3rem;
     position: relative;
-    border-radius: 0;
+    border-radius: 12px;
     padding: 3rem;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    border-image: linear-gradient(90deg, 
+      rgba($primary-color, 0.2) 0%,
+      rgba($primary-color, 0.2) 35%,
+      rgba($accent-color, 0.2) 45%,
+      rgba($accent-color, 0.2) 55%,
+      rgba($secondary-color, 0.2) 65%,
+      rgba($secondary-color, 0.2) 100%
+    ) 1;
 
     @media (max-width: 768px) {
       padding: 2rem;
@@ -128,7 +150,7 @@ h1 {
     }
 
     h2 {
-      color: $accent-color;
+      color: $primary-color;
       font-size: 1.4rem;
       font-weight: 400;
       margin-bottom: 2rem;
@@ -145,7 +167,7 @@ h1 {
         transform: translateY(-50%);
         width: 3px;
         height: 20px;
-        background: $copper-gradient;
+        background: $french-gradient;
       }
     }
   }
@@ -165,6 +187,7 @@ h1 {
   .form-group {
     flex: 1;
     margin-bottom: 2.5rem;
+    box-sizing: border-box;
 
     @media (max-width: 768px) {
       margin-bottom: 1.5rem;
@@ -184,7 +207,6 @@ h1 {
 
     label {
       display: block;
-      margin-bottom: 0.8rem;
       color: $text-color;
       font-size: 0.9rem;
       font-weight: 500;
@@ -192,7 +214,7 @@ h1 {
       letter-spacing: 1px;
     }
 
-    input, textarea {
+    input, textarea, select {
       width: 100%;
       padding: 1rem;
       border: none;
@@ -201,10 +223,11 @@ h1 {
       transition: all 0.3s ease;
       background: transparent;
       color: $text-color;
+      box-sizing: border-box;
 
       &:focus {
         outline: none;
-        border-bottom-color: $accent-color;
+        border-bottom-color: $primary-color;
       }
 
       &.ng-invalid.ng-touched {
@@ -222,7 +245,65 @@ h1 {
       border-radius: 4px;
       
       &:focus {
-        border-color: $accent-color;
+        border-color: $primary-color;
+      }
+    }
+
+    select {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-bottom: 1px solid $border-color;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: transparent;
+      color: $text-color;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23002395' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1.2em;
+      padding-right: 2.5rem;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-bottom-color: $primary-color;
+      }
+
+      &.ng-invalid.ng-touched {
+        border-bottom-color: $error-color;
+      }
+
+      &[multiple] {
+        height: 200px;
+        padding: 0;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        background-image: none;
+        
+        option {
+          padding: 0.8rem 1rem;
+          margin: 0;
+          border-bottom: 1px solid $border-color;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          
+          &:last-child {
+            border-bottom: none;
+          }
+          
+          &:hover {
+            background-color: rgba($primary-color, 0.05);
+          }
+          
+          &:checked {
+            background-color: rgba($primary-color, 0.1);
+            color: $primary-color;
+            font-weight: 500;
+          }
+        }
       }
     }
   }
@@ -244,52 +325,44 @@ h1 {
     font-size: 1rem;
     line-height: 1.6;
     font-weight: 300;
-
-    @media (max-width: 768px) {
-      margin-bottom: 1.5rem;
-      padding: 0 1rem;
-    }
   }
 
   .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   .menu-day {
     .checkbox-container {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      text-align: center;
-
-      @media (max-width: 768px) {
-        padding: 0.8rem;
-      }
-
-      background: transparent;
+      padding: 0.8rem;
       border: 1px solid $border-color;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s ease;
 
       &:hover {
-        border-color: $accent-color;
-        background: rgba($accent-color, 0.02);
+        border-color: $primary-color;
+        background: rgba($primary-color, 0.02);
       }
 
       input[type="checkbox"] {
         margin-right: 0.8rem;
-        width: 18px;
+        width: 25% !important;
         height: 18px;
-        accent-color: $accent-color;
+
+        accent-color: $primary-color;
+      }
+
+      label {
+        margin: 0;
+        cursor: pointer;
+        font-size: 0.95rem;
+        color: $text-color;
       }
     }
   }
@@ -306,14 +379,14 @@ h1 {
     top: -2rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 1px;
-    background: $accent-color;
+    width: 80px;
+    height: 2px;
+    background: $french-gradient;
   }
 
   .submit-button {
-    background: $copper-gradient;
-    color: white;
+    background: $french-gradient;
+    color: $accent-color;
     border: none;
     padding: 1.2rem 3rem;
     font-size: 1rem;
@@ -324,9 +397,14 @@ h1 {
     transition: all 0.3s ease;
     min-width: 280px;
     position: relative;
+    box-shadow: 0 4px 15px rgba(0, 35, 149, 0.15);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 50px;
 
     &:not(:disabled):hover {
       transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 35, 149, 0.25);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
     }
 
     &:disabled {
@@ -429,7 +507,7 @@ h1 {
   display: inline-flex;
   align-items: center;
   padding: 0.8rem 0;
-  color: $accent-color;
+  color: $primary-color;
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
@@ -445,8 +523,9 @@ h1 {
   }
 
   &:hover {
-    color: darken($accent-color, 10%);
+    color: darken($primary-color, 10%);
     transform: translateX(-5px);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 
     .back-icon {
       transform: translateX(-3px);
@@ -493,5 +572,77 @@ h1 {
         color: $error-color;
       }
     }
+  }
+}
+
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: $primary-color;
+    background: rgba($primary-color, 0.02);
+  }
+
+  input[type="checkbox"] {
+    margin-right: 0.8rem;
+    width: 25% !important;
+    height: 18px;
+    accent-color: $primary-color;
+  }
+
+  label {
+    margin: 0;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: $text-color;
+  }
+}
+
+.help-text {
+  display: block;
+  margin-top: 8px;
+  color: $text-muted;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+::ng-deep .swal2-confirm-button {
+  background: linear-gradient(90deg, 
+    #002395 0%,
+    #002395 35%,
+    #FFFFFF 45%,
+    #FFFFFF 55%,
+    #ED2939 65%,
+    #ED2939 100%
+  ) !important;
+  border: none !important;
+  color: white !important;
+  padding: 0.8rem 2rem !important;
+  border-radius: 50px !important;
+  font-weight: 500 !important;
+  letter-spacing: 1px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 35, 149, 0.15) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+  min-width: 120px !important;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 35, 149, 0.25) !important;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
   }
 } 

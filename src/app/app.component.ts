@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  imports: [RouterOutlet],
+  template: `
+    <router-outlet></router-outlet>
+  `,
+  styles: []
 })
 export class AppComponent {
   title = 'Personal Chef Club';

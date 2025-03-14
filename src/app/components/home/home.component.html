@@ -2,30 +2,30 @@
   <!-- Logo -->
   <div class="hero-section">
     <div class="logo-container">
-      <img src="assets/images/logo-v5.svg" alt="Personal Chef Club Logo" class="logo">
+      <img src="assets/images/personalchefclub-logo-enhanced.jpg" alt="Personal Chef Club Logo" class="logo">
     </div>
-    <p class="subtitle">Une expérience gastronomique unique à domicile</p>
-    <a routerLink="/commander" class="cta-button">Commander maintenant</a>
+    <p class="subtitle">A unique gastronomic experience at home</p>
+    <a routerLink="/order" class="cta-button">Order Now</a>
   </div>
 
   <section class="about-section">
-    <h2>Notre Concept</h2>
+    <h2>Our Concept</h2>
     <div class="concept-description">
       <p>
-        Bienvenue au Personal Chef Club, votre partenaire gastronomique de confiance. 
-        Nous proposons des plats raffinés, préparés quotidiennement par nos chefs experts, 
-        à emporter ou en livraison. Chaque semaine, découvrez une nouvelle carte pensée 
-        avec soin, mettant en valeur des produits frais et de saison.
+        Welcome to Personal Chef Club, your trusted gastronomic partner. 
+        We offer refined dishes, prepared daily by our expert chefs, 
+        for takeaway or delivery. Every week, discover a new carefully crafted menu, 
+        highlighting fresh and seasonal products.
       </p>
       <p>
-        Notre engagement : vous offrir une expérience culinaire de haute qualité, 
-        pratique et accessible. Commandez avant 10h pour une livraison le jour même !
+        Our commitment: to offer you a high-quality culinary experience, 
+        practical and accessible. Order before 10am for same-day delivery!
       </p>
     </div>
   </section>
 
   <section class="menus-section">
-    <h2>Nos Menus de la Semaine</h2>
+    <h2>Our Weekly Menus</h2>
     <div class="menus-grid">
       @for (menu of menus(); track menu.id) {
         <div class="menu-card">
@@ -37,7 +37,7 @@
             <h3>{{ menu.nom }}</h3>
             <p class="description">{{ menu.description }}</p>
             <div class="ingredients">
-              <h4>Ingrédients :</h4>
+              <h4>Ingredients:</h4>
               <ul>
                 @for (ingredient of menu.ingredients; track ingredient) {
                   <li>{{ ingredient }}</li>
@@ -46,7 +46,7 @@
             </div>
             @if (menu.allergenes && menu.allergenes.length > 0) {
               <div class="allergenes">
-                <p>Allergènes : {{ menu.allergenes.join(', ') }}</p>
+                <p>Allergens: {{ menu.allergenes.join(', ') }}</p>
               </div>
             }
             <div class="prix">{{ menu.prix | currency:'EUR':'symbol':'1.2-2' }}</div>
