@@ -28,7 +28,14 @@ $french-gradient: linear-gradient(90deg,
   background: transparent;
 
   @media (max-width: 768px) {
-    margin: 2rem auto;
+    margin: 0;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    background: linear-gradient(135deg, 
+      rgba($primary-color, 0.05) 0%,
+      rgba($accent-color, 0.05) 50%,
+      rgba($secondary-color, 0.05) 100%
+    );
   }
 }
 
@@ -133,6 +140,9 @@ h1 {
     @media (max-width: 768px) {
       padding: 2rem;
       margin-bottom: 2rem;
+      background: rgba(white, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 
       h2 {
         text-align: center;

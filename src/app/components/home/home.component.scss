@@ -81,14 +81,9 @@ $french-gradient: linear-gradient(135deg,
       transition: all 0.4s ease;
       margin-bottom: 0.5rem;
       border-radius: 50%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      border: 3px solid rgba($primary-color, 0.1);
-
-      &:hover {
-        transform: scale(1.05) translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        border-color: rgba($primary-color, 0.2);
-      }
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      border: 3px solid rgba($primary-color, 0.2);
+      transform: scale(1.05) translateY(-5px);
 
       @include responsive(mobile) {
         width: 250px;
