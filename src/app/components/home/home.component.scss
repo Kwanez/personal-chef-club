@@ -260,6 +260,15 @@ $french-gradient: linear-gradient(135deg,
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 40px;
   padding: 20px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    gap: 30px;
+    max-width: 100%;
+  }
 }
 
 .menu-card {
@@ -279,6 +288,11 @@ $french-gradient: linear-gradient(135deg,
     rgba($secondary-color, 0.2) 100%
   ) 1;
 
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0 auto;
+  }
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
@@ -288,6 +302,10 @@ $french-gradient: linear-gradient(135deg,
     position: relative;
     height: 250px;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+      height: 200px;
+    }
 
     img {
       width: 100%;
@@ -310,12 +328,12 @@ $french-gradient: linear-gradient(135deg,
     }
   }
 
-  &:hover .menu-image img {
-    transform: scale(1.05);
-  }
-
   .menu-content {
     padding: 30px;
+
+    @media (max-width: 768px) {
+      padding: 20px;
+    }
 
     h3 {
       color: $primary-color;
